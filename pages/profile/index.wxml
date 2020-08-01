@@ -1,5 +1,17 @@
 <!--pages/profile/index.wxml-->
 <text style="font-size: 36rpx;">Profile</text>
 
-<button type="primary" open-type="getUserInfo" bindgetuserinfo="userInfoHandler">用户授权</button>
+<view wx:if="{{!currentUser}}" >
+  <button type="primary" open-type="getUserInfo" bindgetuserinfo="userInfoHandler">Login</button>
+</view>
+
+<view wx:else>
+  <view>Welcome, {{currentUser.nickname}}
+  </view>
+</view>
+<view>
+<view> Points: {{points}}
+</view>
+</view>
+
 

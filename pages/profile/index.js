@@ -6,6 +6,7 @@ Page({
    */
   data: {
     currentUser: null,
+    points: 0,
   },
 
   /**
@@ -15,7 +16,10 @@ Page({
     const app = getApp();
 
     console.log('userData', app.globalData.userInfo);
-
+    this.setData( {
+      currentUser: app.globalData.userInfo,
+      points: app.globalData.userInfo.get('points')
+    })
   },
   userInfoHandler(data) {
     const app = getApp();
@@ -29,6 +33,16 @@ Page({
         // **err 有两种情况**：用户拒绝授权，HError 对象上会包含基本用户信息：id、openid、unionid；其他类型的错误，如网络断开、请求超时等，将返回 HError 对象（详情见下方注解）
     })
   },
+
+  getPhoneNumber(e) {
+    wx.BaaS.wxDecryptData(e.detail.encryptedData, e.detail.iv, 'phone-number').then(
+      (decryptedData) => {
+        console.log("decryptedData: ", decryptedData)
+      }
+    )
+
+  },
+
   /**
    * Lifecycle function--Called when page is initially rendered
    */
